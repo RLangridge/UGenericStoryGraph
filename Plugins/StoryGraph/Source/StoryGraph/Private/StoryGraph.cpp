@@ -16,50 +16,18 @@ static const FName StoryGraphTabName("StoryGraph");
 void FStoryGraphModule::StartupModule()
 {
 	// This code will execute after your module is loaded into memory; the exact timing is specified in the .uplugin file per-module
-	
-	FStoryGraphStyle::Initialize();
-	FStoryGraphStyle::ReloadTextures();
-
-	FStoryGraphCommands::Register();
-	
-	PluginCommands = MakeShareable(new FUICommandList);
-
-	PluginCommands->MapAction(
-		FStoryGraphCommands::Get().OpenPluginWindow,
-		FExecuteAction::CreateRaw(this, &FStoryGraphModule::PluginButtonClicked),
-		FCanExecuteAction());
-		
-	FLevelEditorModule& LevelEditorModule = FModuleManager::LoadModuleChecked<FLevelEditorModule>("LevelEditor");
-	
-	{
-		TSharedPtr<FExtender> MenuExtender = MakeShareable(new FExtender());
-		MenuExtender->AddMenuExtension("WindowLayout", EExtensionHook::After, PluginCommands, FMenuExtensionDelegate::CreateRaw(this, &FStoryGraphModule::AddMenuExtension));
-
-		LevelEditorModule.GetMenuExtensibilityManager()->AddExtender(MenuExtender);
-	}
-	
-	{
-		TSharedPtr<FExtender> ToolbarExtender = MakeShareable(new FExtender);
-		ToolbarExtender->AddToolBarExtension("Settings", EExtensionHook::After, PluginCommands, FToolBarExtensionDelegate::CreateRaw(this, &FStoryGraphModule::AddToolbarExtension));
-		
-		LevelEditorModule.GetToolBarExtensibilityManager()->AddExtender(ToolbarExtender);
-	}
-	
-	/*FGlobalTabmanager::Get()->RegisterNomadTabSpawner(StoryGraphTabName, FOnSpawnTab::CreateRaw(this, &FStoryGraphModule::OnSpawnPluginTab))
-		.SetDisplayName(LOCTEXT("FStoryGraphTabTitle", "StoryGraph"))
-		.SetMenuType(ETabSpawnerMenuType::Hidden);*/
+	MenuExtensibilityManager = MakeShareable(new FExtensibilityManager);
+	ToolbarExtensibilityManager = MakeShareable(new FExtensibilityManager);
 }
 
 void FStoryGraphModule::ShutdownModule()
 {
-	// This function may be called during shutdown to clean up your module.  For modules that support dynamic reloading,
-	// we call this function before unloading the module.
-	FStoryGraphStyle::Shutdown();
-
-	FStoryGraphCommands::Unregister();
-
-	FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(StoryGraphTabName);
+	MenuExtensibilityManager.Reset();
+	ToolbarExtensibilityManager.Reset();
 }
+
+
+
 
 TSharedRef<SGraphEditor> FStoryGraphModule::OnSpawnPluginTab(const FSpawnTabArgs& SpawnTabArgs)
 {

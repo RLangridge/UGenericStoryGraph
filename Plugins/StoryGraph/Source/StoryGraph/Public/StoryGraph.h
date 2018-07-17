@@ -5,11 +5,15 @@
 #include "CoreMinimal.h"
 #include "ModuleManager.h"
 #include "GraphEditor.h"
+#include "Toolkits/AssetEditorToolkit.h"
+#include "Toolkits/IToolkit.h"
+#include "IGameDialogueEditor.h"
+#include "IStoryGraphModule.h"
 
 class FToolBarBuilder;
 class FMenuBuilder;
 
-class FStoryGraphModule : public IModuleInterface
+class FStoryGraphModule : public IStoryGraphModule
 {
 public:
 
@@ -19,6 +23,10 @@ public:
 	
 	/** This function will be bound to Command (by default it will bring up plugin window) */
 	void PluginButtonClicked();
+
+	/** Gets the extensibility managers for outside entities to extend static mesh editor's menus and toolbars */
+	virtual TSharedPtr<FExtensibilityManager> GetMenuExtensibilityManager() override { return MenuExtensibilityManager; }
+	virtual TSharedPtr<FExtensibilityManager> GetToolBarExtensibilityManager() override { return ToolbarExtensibilityManager; }
 	
 private:
 
@@ -29,4 +37,6 @@ private:
 
 private:
 	TSharedPtr<class FUICommandList> PluginCommands;
+	TSharedPtr<FExtensibilityManager> MenuExtensibilityManager;
+	TSharedPtr<FExtensibilityManager> ToolbarExtensibilityManager;
 };
