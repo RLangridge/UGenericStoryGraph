@@ -11,7 +11,10 @@
 
 static const FName StoryGraphTabName("StoryGraph");
 
+//Currently a compiler work around for redefining loctext
+#ifndef LOCTEXT_NAMESPACE 
 #define LOCTEXT_NAMESPACE "FStoryGraphModule"
+#endif
 
 void FStoryGraphModule::StartupModule()
 {
