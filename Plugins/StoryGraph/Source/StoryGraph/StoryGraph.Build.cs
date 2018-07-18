@@ -44,6 +44,10 @@ public class StoryGraph : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
+                "ApplicationCore",
+                "Json",
+                "EditorStyle",
+                "GraphEditor",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

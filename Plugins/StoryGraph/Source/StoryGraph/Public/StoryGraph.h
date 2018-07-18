@@ -10,6 +10,8 @@
 #include "IGameDialogueEditor.h"
 #include "IStoryGraphModule.h"
 
+const FName GameDialogueEditorAppIdentifier;
+
 class FToolBarBuilder;
 class FMenuBuilder;
 

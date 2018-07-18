@@ -151,10 +151,10 @@ private:
 	TMap< FName, TWeakPtr<SDockableTab> > SpawnedToolPanels;
 
 	/** New Graph Editor */
-	TSharedPtr<SGraphEditor> SoundCueGraphEditor;
+	TSharedPtr<SGraphEditor> GameDialogueGraphEditor;
 
 	/** Properties tab */
-	TSharedPtr<class IDetailsView> SoundCueProperties;
+	TSharedPtr<class IDetailsView> GameDialogueProperties;
 
 	/** Palette of GameDialogue Node types */
 	//TSharedPtr<class SSoundCuePalette> Palette;
