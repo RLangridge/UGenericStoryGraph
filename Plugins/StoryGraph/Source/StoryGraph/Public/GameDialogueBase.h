@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS(config = Engine, hidecategories = Object, abstract, editinnewline, BlueprintType)
+UCLASS(config = Engine, hidecategories = Object, abstract, BlueprintType)
 class STORYGRAPH_API UGameDialogueBase : public UObject
 {
 	GENERATED_BODY()
